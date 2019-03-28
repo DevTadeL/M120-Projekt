@@ -1,4 +1,5 @@
-﻿using System;
+﻿using M120Projekt.Data;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -21,18 +22,28 @@ namespace M120Projekt
     /// </summary>
     public partial class MainWindow : Window
     {
+        private List<Todo> todos = new List<Todo>();
+
         public MainWindow()
         {
             InitializeComponent();
             // Wichtig!
             Data.Global.context = new Data.Context();
             // Aufruf diverse APIDemo Methoden
+            APIDemo.DemoADelete();            
             APIDemo.DemoACreate();
             APIDemo.DemoACreateKurz();
             APIDemo.DemoARead();
             APIDemo.DemoAUpdate();
             APIDemo.DemoARead();
-            APIDemo.DemoADelete();
+
+            todoListBox.ItemsSource = todos;
+            todos.AddRange(Todo.GetAll());
+        }
+
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

@@ -1,0 +1,45 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:M120Projekt"
+        xmlns:Data="clr-namespace:M120Projekt.Data" x:Class="M120Projekt.MainWindow"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" MinWidth="400">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="46*"/>
+            <ColumnDefinition Width="336*"/>
+            <ColumnDefinition Width="130*"/>
+            <ColumnDefinition Width="233*"/>
+            <ColumnDefinition Width="47*"/>
+        </Grid.ColumnDefinitions>
+        <ListBox Name="todoListBox" Grid.Column="1" Margin="10,72,10,22" SelectionChanged="ListBox_SelectionChanged" AllowDrop="True" Grid.ColumnSpan="2">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Margin="5" FontSize="16" FontWeight="Bold" Text="{Binding Path=Title}"/>
+                        <Expander Name="expender">
+                            <Border Margin="5" Background="Wheat" BorderThickness="5" BorderBrush="Brown">
+                                <StackPanel>
+                                    <TextBlock Margin="5" FontSize="16" FontWeight="Bold" Text="{Binding Path=Description}"/>
+                                    <TextBlock Margin="5, 0"  Foreground="Blue" Text="{Binding Path=Done}"/>
+                                </StackPanel>
+                            </Border>
+                        </Expander>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Button Grid.Column="3" Margin="0,81,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="125" Height="20">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="" />
+                <TextBlock Text="Neues Todo" Width="66"/>
+            </StackPanel>
+        </Button>
+
+        <TextBox  Grid.Column="1" Margin="10,49,0,0" TextWrapping="Wrap" Text="TextBox" Height="23" VerticalAlignment="Top"/>
+        <Button Content="Button" Grid.Column="2" Margin="0,49,10,0" Height="23" VerticalAlignment="Top"/>
+    </Grid>
+</Window>
