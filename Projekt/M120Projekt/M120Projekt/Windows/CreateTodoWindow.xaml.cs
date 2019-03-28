@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace M120Projekt
+namespace M120Projekt.Windows
 {
     /// <summary>
-    /// Interaktionslogik für Window1.xaml
+    /// Interaktionslogik für CreateTodoWindow.xaml
     /// </summary>
-    public partial class Window1 : Window
+    public partial class CreateTodoWindow : Window
     {
-        public Window1()
+        public CreateTodoWindow()
         {
             InitializeComponent();
         }

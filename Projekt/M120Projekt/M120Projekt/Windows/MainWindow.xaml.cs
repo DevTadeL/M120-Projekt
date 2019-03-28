@@ -1,4 +1,5 @@
 ﻿using M120Projekt.Data;
+using M120Projekt.Windows;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -44,6 +45,32 @@ namespace M120Projekt
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+        private void TextBox_OnFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+            if (textBox.Text == "Nach Todo suchen")
+            {
+                textBox.Text = "";
+            }
+            textBox.Foreground = new SolidColorBrush(Colors.Black);
+        }
+
+        private void TextBox_OnFocusLost(object sender, RoutedEventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+            if (textBox.Text == null || textBox.Text == "")
+            {
+                textBox.Text = "Nach Todo suchen";
+                textBox.Foreground = new SolidColorBrush(Colors.DimGray);
+            }
+        }
+
+        private void NewTodoBtnClick(object sender, RoutedEventArgs e)
+        {
+            CreateTodoWindow createNewTodoWin = new CreateTodoWindow();
+            createNewTodoWin.ShowDialog();
         }
     }
 }

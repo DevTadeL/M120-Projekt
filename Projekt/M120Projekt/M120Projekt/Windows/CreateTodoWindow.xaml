@@ -1,0 +1,34 @@
+﻿<Window x:Class="M120Projekt.Windows.CreateTodoWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:M120Projekt"
+        mc:Ignorable="d"
+        Title="CreateTodoWindow" Height="500" Width="400">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="7*"/>
+            <ColumnDefinition Width="10*"/>
+        </Grid.ColumnDefinitions>
+        <Label Content="Titel" HorizontalContentAlignment="Right" Margin="10,61,6,0" VerticalAlignment="Top"/>
+        <Label Content="Beschreibung" HorizontalContentAlignment="Right" Margin="10,92,6,0" VerticalAlignment="Top"/>
+        <DatePicker Grid.Column="1" HorizontalAlignment="Left" Margin="23,235,0,0" VerticalAlignment="Top" Width="138"/>
+        <Label Content="Frist" HorizontalContentAlignment="Right" Margin="6,234,10,0" VerticalAlignment="Top"/>
+        <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="54" Margin="23,96,0,0" TextWrapping="Wrap" AcceptsReturn="True" VerticalAlignment="Top" Width="142"/>
+        <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="23,65,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="142"/>
+        <ComboBox Grid.Column="1" HorizontalAlignment="Left" Margin="23,155,0,0" VerticalAlignment="Top" Width="142"/>
+        <Label Content="Wichtigkeit" HorizontalContentAlignment="Right" Margin="6,151,10,0" VerticalAlignment="Top"/>
+        <Separator Height="22" Margin="10,195,10,0" VerticalAlignment="Top" Grid.ColumnSpan="2" RenderTransformOrigin="0.498,3.121"/>
+        <Label Content="Weitere Eigenschaften" HorizontalContentAlignment="Right" Margin="6,203,10,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Label Content="Weitere Eigenschaften" HorizontalContentAlignment="Right" Margin="6,203,10,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Separator Height="22" Margin="10,22,10,0" VerticalAlignment="Top" Grid.ColumnSpan="2" RenderTransformOrigin="0.498,3.121"/>
+        <Label Content="Grundeigenschaften" HorizontalContentAlignment="Right" Margin="6,30,10,0" VerticalAlignment="Top" FontWeight="Bold"/>
+        <Label Content="Auftraggeber" HorizontalContentAlignment="Right" Margin="6,265,10,0" VerticalAlignment="Top"/>
+        <Label Content="Ort" HorizontalContentAlignment="Right" Margin="6,296,10,0" VerticalAlignment="Top"/>
+        <Label Content="Telefonnummer" HorizontalContentAlignment="Right" Margin="6,327,10,0" VerticalAlignment="Top"/>
+        <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="23,269,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="142"/>
+        <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="23,300,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="142"/>
+        <TextBox Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="23,331,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="142"/>
+    </Grid>
+</Window>

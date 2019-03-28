@@ -6,14 +6,18 @@
         xmlns:local="clr-namespace:M120Projekt"
         xmlns:Data="clr-namespace:M120Projekt.Data" x:Class="M120Projekt.MainWindow"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" MinWidth="400">
+        Title="TodoListe" Height="450" Width="600" MinWidth="400" MinHeight="300">
     <Grid>
+        <Grid.Resources>
+            <BitmapImage x:Key="addImage" UriSource="/Assets/add.png"/>
+            <BitmapImage x:Key="searchImage" UriSource="/Assets/search.png"/>
+        </Grid.Resources>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="46*"/>
+            <ColumnDefinition Width="45*"/>
             <ColumnDefinition Width="336*"/>
             <ColumnDefinition Width="130*"/>
             <ColumnDefinition Width="233*"/>
-            <ColumnDefinition Width="47*"/>
+            <ColumnDefinition Width="45*"/>
         </Grid.ColumnDefinitions>
         <ListBox Name="todoListBox" Grid.Column="1" Margin="10,72,10,22" SelectionChanged="ListBox_SelectionChanged" AllowDrop="True" Grid.ColumnSpan="2">
             <ListBox.ItemTemplate>
@@ -32,14 +36,18 @@
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-        <Button Grid.Column="3" Margin="0,81,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="125" Height="20">
+        <Button Grid.Column="3" Margin="0,80,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="100" Height="20" Click="NewTodoBtnClick">
             <StackPanel Orientation="Horizontal">
-                <Image Source="" />
+                <Image Source="{StaticResource addImage}" Width="16" Margin="0,0,5,0" />
                 <TextBlock Text="Neues Todo" Width="66"/>
             </StackPanel>
         </Button>
 
-        <TextBox  Grid.Column="1" Margin="10,49,0,0" TextWrapping="Wrap" Text="TextBox" Height="23" VerticalAlignment="Top"/>
-        <Button Content="Button" Grid.Column="2" Margin="0,49,10,0" Height="23" VerticalAlignment="Top"/>
+        <TextBox  Grid.Column="1" Margin="10,49,0,0" Padding="10,0,0,0" TextWrapping="Wrap" Height="23" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Text="Nach Todo suchen" GotFocus="TextBox_OnFocus" LostFocus="TextBox_OnFocusLost" FontSize="14" Background="White" Foreground="#FF8D8D8D"/>
+        <Button Grid.Column="2" Margin="0,49,10,0" Height="23" VerticalAlignment="Top">
+            <StackPanel Orientation="Horizontal">
+                <Image Source="{StaticResource searchImage}" Width="16" Margin="0,0,5,0" />
+            </StackPanel>
+        </Button>
     </Grid>
 </Window>
