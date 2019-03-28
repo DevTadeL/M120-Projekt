@@ -28,6 +28,9 @@ namespace M120Projekt
         public MainWindow()
         {
             InitializeComponent();
+
+            WindowStartupLocation = WindowStartupLocation.CenterScreen;
+
             // Wichtig!
             Data.Global.context = new Data.Context();
             // Aufruf diverse APIDemo Methoden
@@ -41,6 +44,8 @@ namespace M120Projekt
             todoListBox.ItemsSource = todos;
             todos.AddRange(Todo.GetAll());
         }
+
+
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -69,7 +74,7 @@ namespace M120Projekt
 
         private void NewTodoBtnClick(object sender, RoutedEventArgs e)
         {
-            CreateTodoWindow createNewTodoWin = new CreateTodoWindow();
+            EditTodoWindow createNewTodoWin = new EditTodoWindow();
             createNewTodoWin.ShowDialog();
         }
     }

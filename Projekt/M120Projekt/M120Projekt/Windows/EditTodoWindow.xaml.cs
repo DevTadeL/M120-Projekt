@@ -15,13 +15,21 @@ using System.Windows.Shapes;
 namespace M120Projekt.Windows
 {
     /// <summary>
-    /// Interaktionslogik für CreateTodoWindow.xaml
+    /// Interaktionslogik für EditTodoWindow.xaml
     /// </summary>
-    public partial class CreateTodoWindow : Window
+    public partial class EditTodoWindow : Window
     {
-        public CreateTodoWindow()
+        public EditTodoWindow()
         {
             InitializeComponent();
+
+            Owner = Application.Current.MainWindow;
+            WindowStartupLocation = WindowStartupLocation.CenterOwner;
+            this.Left += Owner.Width;
+        }
+
+        private void CreateTodoUsercontrol_Loaded(object sender, RoutedEventArgs e)
+        {
         }
     }
 }
