@@ -24,13 +24,21 @@ namespace M120Projekt.Windows
         public CreateTodoUsercontrol()
         {
             InitializeComponent();
+
+            // Test RegEx für TelefonNr (nicht fertiges RegEx).
+            this.inputPhoneNr.SetRegex(@"^([0-9]{10,})$");
+            this.inputPhoneNr.SetErrorMessage("Ungültige Telefonnummer");
+            this.inputPhoneNr.SetSuccessMessage("Gültige Telefonnummer");
         }
 
         private void btnSaveTodo_Click(object sender, RoutedEventArgs e)
         {
             if (ValidateTextBoxNotEmpty(this.inputTitle) && ValidateTextBoxNotEmpty(this.inputDescription))
             {
+                //
                 // TODO: Validate Input
+                //
+
                 Data.Todo newTodo = new Data.Todo();
                 newTodo.Title = this.inputTitle.Text;
                 newTodo.Description = this.inputDescription.Text;

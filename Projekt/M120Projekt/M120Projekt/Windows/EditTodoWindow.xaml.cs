@@ -28,8 +28,5 @@ namespace M120Projekt.Windows
             this.Left += Owner.Width;
         }
 
-        private void CreateTodoUsercontrol_Loaded(object sender, RoutedEventArgs e)
-        {
-        }
     }
 }

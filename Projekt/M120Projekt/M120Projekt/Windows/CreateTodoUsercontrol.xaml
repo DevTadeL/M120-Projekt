@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:M120Projekt"
-        xmlns:local1="clr-namespace:M120Projekt.Windows" x:Class="M120Projekt.Windows.CreateTodoUsercontrol"
+        xmlns:local1="clr-namespace:M120Projekt.Windows" xmlns:UserControls="clr-namespace:M120Projekt.UserControls" x:Class="M120Projekt.Windows.CreateTodoUsercontrol"
         mc:Ignorable="d"
         Loaded="CreateTodo_Loaded">
     <Grid>
@@ -33,9 +33,9 @@
             <ComboBoxItem Content="Sehr Wichtig"/>
         </ComboBox>
         <DatePicker x:Name="dateDeadline" Grid.Column="1" Margin="10,247,60,0" VerticalAlignment="Top" Height="24"/>
-        <local1:InputIsEmptyCheck x:Name="inputAsignee" Grid.Column="1" Height="45" Margin="10,279,60,0" VerticalAlignment="Top"/>
-        <local1:InputIsEmptyCheck x:Name="inputPlace" Grid.Column="1" Height="43" Margin="10,318,60,0" VerticalAlignment="Top"/>
-        <local1:InputIsEmptyCheck x:Name="inputPhoneNr" Grid.Column="1" Height="44" Margin="10,354,60,0" VerticalAlignment="Top"/>
+        <UserControls:InputRegexUC  x:Name="inputAsignee" Grid.Column="1" Height="45" Margin="10,279,60,0" VerticalAlignment="Top"/>
+        <UserControls:InputRegexUC x:Name="inputPlace" Grid.Column="1" Height="43" Margin="10,318,60,0" VerticalAlignment="Top"/>
+        <UserControls:InputRegexUC x:Name="inputPhoneNr" Grid.Column="1" Height="44" Margin="10,354,60,0" VerticalAlignment="Top"/>
         <Button x:Name="btnSaveTodo" Content="Speichern" HorizontalAlignment="Right" Margin="0,401,10,0" VerticalAlignment="Top" Width="110" Click="btnSaveTodo_Click" Height="20"/>
         <Button x:Name="btnCancel" Content="Abbrechen" Margin="10,401,0,0" VerticalAlignment="Top" Click="btnCancel_Click" Grid.Column="1" HorizontalAlignment="Left" Width="110" Height="20"/>
     </Grid>
