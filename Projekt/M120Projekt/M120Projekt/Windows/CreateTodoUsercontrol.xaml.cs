@@ -29,6 +29,7 @@ namespace M120Projekt.Windows
             this.inputPhoneNr.SetRegex(@"^([0-9]{10,})$");
             this.inputPhoneNr.SetErrorMessage("Ungültige Telefonnummer");
             this.inputPhoneNr.SetSuccessMessage("Gültige Telefonnummer");
+            this.inputPhoneNr.IsMandatory = true;
         }
 
         private void btnSaveTodo_Click(object sender, RoutedEventArgs e)
@@ -48,9 +49,9 @@ namespace M120Projekt.Windows
                 if (this.dateDeadline.SelectedDate != null)
                     newTodo.Deadline = this.dateDeadline.SelectedDate.Value;
 
-                newTodo.Asignee = this.inputAsignee.inputTxt.Text;
-                newTodo.Place = this.inputPlace.inputTxt.Text;
-                newTodo.TelNumber = this.inputPhoneNr.inputTxt.Text;
+                newTodo.Asignee = this.inputAsignee.GetInput();
+                newTodo.Place = this.inputPlace.GetInput();
+                newTodo.TelNumber = this.inputPhoneNr.GetInput();
                 newTodo.Created = DateTime.Now;
 
                 newTodo.Create(); // Save Todo in DB
@@ -71,6 +72,9 @@ namespace M120Projekt.Windows
             }
         }
 
+        //
+        // Todo: ENTFERNEN
+        //
         private bool ValidateTextBoxNotEmpty(TextBox box)
         {
             return (box.Text != null && box.Text != "");

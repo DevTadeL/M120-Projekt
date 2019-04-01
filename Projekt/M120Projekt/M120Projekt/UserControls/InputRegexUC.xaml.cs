@@ -18,6 +18,8 @@ namespace M120Projekt.UserControls
 {
     /// <summary>
     /// Interaktionslogik für InputRegexUC.xaml
+    /// InputRegexUserControl besteht aus einer TextBox und einem Label. Das Label ist dafür da, dem Nutzer
+    /// Rückmeldung zu seinem Input zu geben.
     /// </summary>
     public partial class InputRegexUC : UserControl
     {
@@ -28,24 +30,43 @@ namespace M120Projekt.UserControls
         private string errorMessage = "Ungültige Eingabe";
         private string successMessage = "Gültige Eingabe";
         private string regexString = "";
+
+        public bool IsMandatory { get; set; }
         public InputRegexUC()
         {
             InitializeComponent();
+
+            this.IsMandatory = false;
         }
 
-        public void SetError(string msg)
+        /// <summary>
+        /// Es wird ein Error unter dem Textfeld angezeigt
+        /// Error => Rot
+        /// </summary>
+        /// <param name="msg">Errornachricht</param>
+        public void ShowError(string msg)
         {
             this.lblError.Foreground = COLOR_ERROR;
             this.lblError.Content = msg;
         }
 
-        public void SetWarning(string msg)
+        /// <summary>
+        /// Es wird eine Warnung unter dem Textfeld angezeigt
+        /// Warning => Orange
+        /// </summary>
+        /// <param name="msg">Warnungstext</param>
+        public void ShowWarning(string msg)
         {
             this.lblError.Foreground = COLOR_WARNING;
             this.lblError.Content = msg;
         }
 
-        public void SetMessage(string msg)
+        /// <summary>
+        /// Es wird eine Nachricht unter dem Textfeld angezeigt
+        /// Message/Success => Grün
+        /// </summary>
+        /// <param name="msg">Nachricht</param>
+        public void ShowMessage(string msg)
         {
             this.lblError.Foreground = COLOR_MESSAGE;
             this.lblError.Content = msg;
@@ -66,35 +87,70 @@ namespace M120Projekt.UserControls
             this.successMessage = successMessage;
         }
 
-        public bool IsValid()
+        private bool HasRegexString()
         {
-            return Regex.IsMatch(inputTxt.Text, regexString);
+            return this.regexString != "";
         }
 
-        private void Input_TextChanged(object sender, TextChangedEventArgs e)
+        public bool Validate()
         {
-            if (regexString == "")
+            // Warnung geben, wenn kein RegEx-String angegeben wurde.
+            if (!this.HasRegexString())
             {
-                this.SetWarning("Kein RegEx-String angegeben");
+                this.ShowWarning("Kein RegEx-String angegeben");
+                return false;
             }
+            // Darf nicht leer sein.
+            if (this.IsMandatory && this.IsEmpty())
+            {
+                // Wenn notwendig aber leer
+                this.ShowError("Feld darf nicht leer sein");
+                return false;
+            } 
             else
             {
-                if (inputTxt.Text != null && inputTxt.Text != "")
+                if (!this.IsEmpty())
                 {
-                    if (this.IsValid())
+                    if(Regex.IsMatch(this.inputTxt.Text, this.regexString))
                     {
-                        this.SetMessage(this.successMessage);
+                        // Wenn nicht leer und passend zum RegEx
+                        this.ShowMessage(this.successMessage);
+                        return true;
                     }
                     else
                     {
-                        this.SetError(this.errorMessage);
+                        // Wenn nicht leer aber nicht RegEx entsprechend.
+                        this.ShowError(this.errorMessage);
+                        return false;
                     }
-                } 
-                else
-                {
-                    this.SetMessage("");
                 }
+                // Wenn leer aber nicht zwingend Notwendig.
+                this.ShowMessage("");
+                return true;
             }
+        }
+
+        public string GetInput()
+        {
+            return this.inputTxt.Text;
+        }
+
+        private bool IsEmpty()
+        {
+            return this.inputTxt.Text == null || this.inputTxt.Text == "";
+        }
+
+        private void Input_TextChanged(object sender, TextChangedEventArgs e)
+        { 
+            this.Validate();
+        }
+
+        private void InputTxt_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (!this.HasRegexString())
+                this.ShowWarning("Kein RegEx-String angegeben");
+            else
+                this.ShowWarning("");
         }
     }
 }
