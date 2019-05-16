@@ -23,20 +23,21 @@ namespace M120Projekt.UserControls
     /// </summary>
     public partial class InputRegexUC : UserControl
     {
+        public enum Rule { MANDATORY, NUMBERS_ONLY };
+
         public static readonly SolidColorBrush COLOR_ERROR = new SolidColorBrush(Colors.Red);
         public static readonly SolidColorBrush COLOR_WARNING = new SolidColorBrush(Colors.Orange);
         public static readonly SolidColorBrush COLOR_MESSAGE = new SolidColorBrush(Colors.Green);
 
         private string errorMessage = "Ungültige Eingabe";
-        private string successMessage = "Gültige Eingabe";
+        private string successMessage = "";
         private string regexString = "";
 
-        public bool IsMandatory { get; set; }
+        private bool isMandatory;
+        private bool isNumbersOnly;
         public InputRegexUC()
         {
             InitializeComponent();
-
-            this.IsMandatory = false;
         }
 
         /// <summary>
@@ -72,6 +73,36 @@ namespace M120Projekt.UserControls
             this.lblError.Content = msg;
         }
 
+        public void AddRule(Rule rule)
+        {
+            switch (rule)
+            {
+                case Rule.MANDATORY:
+                    this.isMandatory = true;
+                    break;
+                case Rule.NUMBERS_ONLY:
+                    this.isNumbersOnly = true;
+                    break;
+                default:
+                    throw new Exception("Invalid Rule given. Please use the \"Rule\"-Enum from this class");
+            }
+        }
+
+        public void RemoveRule(Rule rule)
+        {
+            switch (rule)
+            {
+                case Rule.MANDATORY:
+                    this.isMandatory = false;
+                    break;
+                case Rule.NUMBERS_ONLY:
+                    this.isNumbersOnly = false;
+                    break;
+                default:
+                    throw new Exception("Invalid Rule given. Please use the \"Rule\"-Enum from this class");
+            }
+        }
+
         public void SetRegex(string regexString)
         {
             this.regexString = regexString;
@@ -87,11 +118,6 @@ namespace M120Projekt.UserControls
             this.successMessage = successMessage;
         }
 
-        private bool HasRegexString()
-        {
-            return this.regexString != "";
-        }
-
         public bool Validate()
         {
             // Warnung geben, wenn kein RegEx-String angegeben wurde.
@@ -100,18 +126,20 @@ namespace M120Projekt.UserControls
                 this.ShowWarning("Kein RegEx-String angegeben");
                 return false;
             }
-            // Darf nicht leer sein.
-            if (this.IsMandatory && this.IsEmpty())
+
+            // === RULES ===
+            // = isMandatory => Darf nicht leer sein.
+            if (this.isMandatory && this.IsEmpty())
             {
                 // Wenn notwendig aber leer
                 this.ShowError("Feld darf nicht leer sein");
                 return false;
-            } 
+            }
             else
             {
                 if (!this.IsEmpty())
                 {
-                    if(Regex.IsMatch(this.inputTxt.Text, this.regexString))
+                    if (Regex.IsMatch(this.inputTxt.Text, this.regexString))
                     {
                         // Wenn nicht leer und passend zum RegEx
                         this.ShowMessage(this.successMessage);
@@ -130,10 +158,16 @@ namespace M120Projekt.UserControls
             }
         }
 
+
         public string GetInput()
         {
             return this.inputTxt.Text;
         }
+        public void SetContent(String content)
+        {
+            this.inputTxt.Text = content;
+        }
+
 
         private bool IsEmpty()
         {
@@ -151,6 +185,26 @@ namespace M120Projekt.UserControls
                 this.ShowWarning("Kein RegEx-String angegeben");
             else
                 this.ShowWarning("");
+        }
+        private bool HasRegexString()
+        {
+            return this.regexString != "";
+        }
+
+        private void Input_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (this.isNumbersOnly)
+            {
+                if(inputTxt.CaretIndex == 0)
+                {
+                    if(e.Text == "+")
+                    {
+                        inputTxt.Text = "00" + inputTxt.Text;
+                        inputTxt.Select(2, 0);
+                    }
+                }
+                e.Handled = !int.TryParse(e.Text, out int num);
+            }
         }
     }
 }

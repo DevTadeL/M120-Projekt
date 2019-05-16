@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:M120Projekt.UserControls"
               mc:Ignorable="d" d:DesignWidth="160" d:DesignHeight="41">
     <Grid Height="51" VerticalAlignment="Bottom">
-        <TextBox x:Name="inputTxt" Height="23" Margin="0,0,0,20" TextWrapping="Wrap" Text="" VerticalAlignment="Bottom" TextChanged="Input_TextChanged" GotFocus="InputTxt_GotFocus"/>
+        <TextBox x:Name="inputTxt" Height="23" Margin="0,0,0,20" TextWrapping="Wrap" Text="" VerticalAlignment="Bottom" TextChanged="Input_TextChanged" GotFocus="InputTxt_GotFocus" PreviewTextInput="Input_PreviewTextInput"/>
         <Label x:Name="lblError" Content="" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="160" FontSize="10" Height="25"/>
     </Grid>
 </UserControl>

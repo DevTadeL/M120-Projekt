@@ -45,8 +45,6 @@ namespace M120Projekt
             todos.AddRange(Todo.GetAll());
         }
 
-
-
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
@@ -74,7 +72,16 @@ namespace M120Projekt
 
         private void NewTodoBtnClick(object sender, RoutedEventArgs e)
         {
-            EditTodoWindow createNewTodoWin = new EditTodoWindow();
+            EditTodoWindow createNewTodoWin = new EditTodoWindow(null);
+            createNewTodoWin.ShowDialog();
+        }
+
+        private void EditTodo_OnClick(object sender, RoutedEventArgs e)
+        {
+            Button pressedBtn = (Button)sender;
+            Todo todo = (Todo)pressedBtn.DataContext;
+            
+            EditTodoWindow createNewTodoWin = new EditTodoWindow((int)todo.TodoID);
             createNewTodoWin.ShowDialog();
         }
     }

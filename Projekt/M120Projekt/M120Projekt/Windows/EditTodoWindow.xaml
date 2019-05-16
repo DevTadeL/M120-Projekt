@@ -6,9 +6,9 @@
         xmlns:local="clr-namespace:M120Projekt"
         xmlns:local1="clr-namespace:M120Projekt.Windows"
         mc:Ignorable="d"
-        Title="EditTodo" Height="470" Width="400" ResizeMode="NoResize">
+        Height="490" Width="400" ResizeMode="NoResize">
 
     <Grid Margin="0,0,0,0">
-        <local1:CreateTodoUsercontrol Margin="10,0" Height="441" VerticalAlignment="Top"/>
+        <local1:CreateTodoUsercontrol x:Name="todoUC" Margin="10,-10,9.6,0" Height="Auto"/>
     </Grid>
 </Window>

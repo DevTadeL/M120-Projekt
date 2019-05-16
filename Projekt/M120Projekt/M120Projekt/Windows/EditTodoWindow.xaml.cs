@@ -19,14 +19,23 @@ namespace M120Projekt.Windows
     /// </summary>
     public partial class EditTodoWindow : Window
     {
-        public EditTodoWindow()
+        public EditTodoWindow(int? id)
         {
             InitializeComponent();
 
             Owner = Application.Current.MainWindow;
             WindowStartupLocation = WindowStartupLocation.CenterOwner;
             this.Left += Owner.Width;
-        }
 
+            if (id != null)
+            {
+                this.Title = "Edit Todo";
+                this.todoUC.SetupValues((int)id);
+            }
+            else
+            {
+                this.Title = "Create Todo";
+            }
+        }
     }
 }

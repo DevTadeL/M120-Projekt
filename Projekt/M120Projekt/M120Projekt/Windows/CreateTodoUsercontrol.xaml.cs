@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using M120Projekt.UserControls;
 
 namespace M120Projekt.Windows
 {
@@ -25,23 +26,24 @@ namespace M120Projekt.Windows
         {
             InitializeComponent();
 
-            // Test RegEx für TelefonNr (nicht fertiges RegEx).
-            this.inputPhoneNr.SetRegex(@"^([0-9]{10,})$");
+            this.inputTitle.SetRegex(@"\w");
+            this.inputTitle.AddRule(InputRegexUC.Rule.MANDATORY);
+
+            this.inputAsignee.SetRegex(@"\w");
+            this.inputPlace.SetRegex(@"\w");
+
+            this.inputPhoneNr.SetRegex(@"^([0-9]{4}.?[0-9]{2}|[0-9]{3}).?[0-9]{3}.?[0-9]{2}.?[0-9]{2}$");
             this.inputPhoneNr.SetErrorMessage("Ungültige Telefonnummer");
             this.inputPhoneNr.SetSuccessMessage("Gültige Telefonnummer");
-            this.inputPhoneNr.IsMandatory = true;
+            this.inputPhoneNr.AddRule(InputRegexUC.Rule.NUMBERS_ONLY);
         }
 
         private void btnSaveTodo_Click(object sender, RoutedEventArgs e)
         {
-            if (ValidateTextBoxNotEmpty(this.inputTitle) && ValidateTextBoxNotEmpty(this.inputDescription))
+            if (ValidateBaseInputs())
             {
-                //
-                // TODO: Validate Input
-                //
-
                 Data.Todo newTodo = new Data.Todo();
-                newTodo.Title = this.inputTitle.Text;
+                newTodo.Title = this.inputTitle.GetInput();
                 newTodo.Description = this.inputDescription.Text;
                 newTodo.Priority = this.comboPriority.SelectedIndex + 1;
 
@@ -63,31 +65,66 @@ namespace M120Projekt.Windows
 
                 this.parentWindow.Close();
             }
-            else
+        }
+
+        public void SetupValues(int id)
+        {
+            Data.Todo currentTodo = Data.Todo.GetById(id);
+
+            this.inputTitle.SetContent(currentTodo.Title);
+            this.inputDescription.Text = currentTodo.Description;
+            this.comboPriority.SelectedIndex = (int)currentTodo.Priority - 1;
+            if(currentTodo.Deadline != null && currentTodo.Deadline != DateTime.MinValue)
             {
-                MessageBox.Show("Die Grundeigenschaften müssen eingegeben werden!",
-                       "Fehler (Placeholder)",
-                       MessageBoxButton.OK,
-                       MessageBoxImage.Exclamation);
+                this.cbHasDeadline.IsChecked = true;
+                this.dateDeadline.SelectedDate = currentTodo.Deadline;
             }
+            this.inputAsignee.SetContent(currentTodo.Asignee);
+            this.inputPlace.SetContent(currentTodo.Place);
+            this.inputPhoneNr.SetContent(currentTodo.TelNumber);
         }
 
-        //
-        // Todo: ENTFERNEN
-        //
-        private bool ValidateTextBoxNotEmpty(TextBox box)
+        /// <summary>
+        /// Funktion 
+        /// </summary>
+        /// <returns></returns>
+        private bool ValidateBaseInputs()
         {
-            return (box.Text != null && box.Text != "");
+            //TODO: GRUNDEIGENSCHAFTEN DÜRFEN NICHT LEER SEIN
+            return this.inputTitle.Validate();
         }
 
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
-            this.parentWindow.Close();
+            //TODO: MESSAGE BOX AUCH ANZEIGEN WENN AUF [X] GEKLICKT WIRD
+            MessageBoxResult result = MessageBox.Show("Wollen Sie das Erstellen des Todos wirklich beenden?\nAlle Änderungen werden verworfen!",
+                    "Änderungen verwerfen",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Warning);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                this.parentWindow.Close();
+            }
         }
 
         private void CreateTodo_Loaded(object sender, RoutedEventArgs e)
         {
             parentWindow = Window.GetWindow(this);
+        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
+        {
+            this.dateDeadline.IsEnabled = true;
+            this.dateDeadline.Opacity = 100;
+            this.lblDeadline.Opacity = 100;
+        }
+
+        private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
+        {
+            this.dateDeadline.IsEnabled = false;
+            this.dateDeadline.Opacity = 50;
+            this.lblDeadline.Opacity = 50;
         }
     }
 }
