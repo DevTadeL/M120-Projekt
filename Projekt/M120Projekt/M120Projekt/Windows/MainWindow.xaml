@@ -23,8 +23,8 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
-                        <TextBlock Grid.Column="1" Margin="5" FontSize="16" FontWeight="Bold" Text="{Binding Path=Title}"/>
-                        <Button Grid.Column="3" Content="Edit" Click="EditTodo_OnClick"/>
+                        <TextBlock Margin="5" FontSize="16" FontWeight="Bold" Text="{Binding Path=Title}"/>
+                        <Button Content="Edit" Click="EditTodo_OnClick"/>
                         <Expander Name="expender">
                             <Border Margin="5" BorderThickness="5">
                                 <StackPanel Width="{Binding ActualWidth, ElementName=todoListBox}">

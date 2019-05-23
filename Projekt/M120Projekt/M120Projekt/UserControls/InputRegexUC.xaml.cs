@@ -23,6 +23,7 @@ namespace M120Projekt.UserControls
     /// </summary>
     public partial class InputRegexUC : UserControl
     {
+        public event EventHandler InputTextChanged;
         public enum Rule { MANDATORY, NUMBERS_ONLY };
 
         public static readonly SolidColorBrush COLOR_ERROR = new SolidColorBrush(Colors.Red);
@@ -175,7 +176,11 @@ namespace M120Projekt.UserControls
         }
 
         private void Input_TextChanged(object sender, TextChangedEventArgs e)
-        { 
+        {
+            if (InputTextChanged != null)
+            {
+                InputTextChanged(this, EventArgs.Empty);
+            }
             this.Validate();
         }
 

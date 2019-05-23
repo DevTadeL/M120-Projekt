@@ -33,7 +33,7 @@
         <Label x:Name="lblDeadline" Content="Frist" HorizontalContentAlignment="Right" Margin="6,269,10,0" VerticalAlignment="Top" Height="26"/>
         <DatePicker x:Name="dateDeadline" Grid.Column="1" Margin="10,271,60.4,0" VerticalAlignment="Top" Height="24" Opacity="0.5" IsEnabled="False"/>
         <UserControls:InputRegexUC  x:Name="inputAsignee" Grid.Column="1" Height="43" Margin="10,310,60.4,0" VerticalAlignment="Top"/>
-        <UserControls:InputRegexUC x:Name="inputPlace" Grid.Column="1" Height="43" Margin="10,348,60.4,0" VerticalAlignment="Top"/>
+        <UserControls:InputRegexUC x:Name="inputPlace" InputTextChanged="UserControllChanged" Grid.Column="1" Height="43" Margin="10,348,60.4,0" VerticalAlignment="Top"/>
         <UserControls:InputRegexUC x:Name="inputPhoneNr" Grid.Column="1" Height="43" Margin="10,386,60.4,0" VerticalAlignment="Top"/>
         <Button x:Name="btnSaveTodo" Content="Speichern" HorizontalAlignment="Right" Margin="0,422,10,0" VerticalAlignment="Top" Width="110" Click="btnSaveTodo_Click" Height="20"/>
         <Button x:Name="btnCancel" Content="Abbrechen" Margin="10,422,0,0" VerticalAlignment="Top" Click="BtnCancel_Click" Grid.Column="1" HorizontalAlignment="Left" Width="110" Height="20"/>

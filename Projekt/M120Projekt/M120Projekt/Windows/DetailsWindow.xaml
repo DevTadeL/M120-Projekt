@@ -1,0 +1,15 @@
+﻿<Window x:Class="M120Projekt.Windows.DetailsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:M120Projekt.Windows"
+        mc:Ignorable="d"
+        Title="DetailsWindow" Height="Auto" Width="400">
+    <Grid>
+        <Button x:Name="btnEdit" Content="Edit" HorizontalAlignment="Left" Margin="10,0,0,10" Width="75" Height="20" VerticalAlignment="Bottom"/>
+        <Button x:Name="btnDelete" Content="Delete" HorizontalAlignment="Left" Margin="268,0,0,10" Width="75" Height="20" VerticalAlignment="Bottom"/>
+        <Label Content="Titel des Todos" Margin="10,10,34,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="16"/>
+        <TextBox HorizontalAlignment="Left" Margin="10,52,0,0" TextWrapping="Wrap" Text="TextBox" Width="273" Height="352" VerticalAlignment="Top"/>
+    </Grid>
+</Window>

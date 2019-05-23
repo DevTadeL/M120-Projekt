@@ -64,6 +64,9 @@
     <Compile Include="UserControls\InputRegexUC.xaml.cs">
       <DependentUpon>InputRegexUC.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\DetailsWindow.xaml.cs">
+      <DependentUpon>DetailsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\EditTodoWindow.xaml.cs">
       <DependentUpon>EditTodoWindow.xaml</DependentUpon>
     </Compile>
@@ -72,6 +75,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\CreateTodoUsercontrol.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\DetailsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

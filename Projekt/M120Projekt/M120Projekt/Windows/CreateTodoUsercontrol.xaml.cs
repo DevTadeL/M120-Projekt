@@ -126,5 +126,11 @@ namespace M120Projekt.Windows
             this.dateDeadline.Opacity = 50;
             this.lblDeadline.Opacity = 50;
         }
+
+        private void UserControllChanged (object sender, EventArgs e)
+        {
+            //Todo: USER CONTROLL CHANGED!!
+        }
+
     }
 }
