@@ -128,6 +128,12 @@ namespace M120Projekt.UserControls
                 return false;
             }
 
+            // Wenn nicht Mandatory und leer => valid
+            if(!this.isMandatory && this.IsEmpty())
+            {
+                return true;
+            }
+
             // === RULES ===
             // = isMandatory => Darf nicht leer sein.
             if (this.isMandatory && this.IsEmpty())

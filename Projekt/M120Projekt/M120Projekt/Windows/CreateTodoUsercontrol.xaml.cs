@@ -94,6 +94,28 @@ namespace M120Projekt.Windows
             return this.inputTitle.Validate();
         }
 
+        private bool ValidateAllInputs()
+        {
+            bool valid = false;
+            if(this.inputTitle.Validate()
+                && this.inputAsignee.Validate()
+                && this.inputPhoneNr.Validate()
+                && this.inputPlace.Validate())
+            {
+                if ((bool)this.cbHasDeadline.IsChecked)
+                {
+                    valid = this.dateDeadline.SelectedDate >= DateTime.Now;
+                } else
+                {
+                    valid = true;
+                }
+            } else
+            {
+                valid = false;
+            }
+            return valid;
+        }
+
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
             //TODO: MESSAGE BOX AUCH ANZEIGEN WENN AUF [X] GEKLICKT WIRD
@@ -118,6 +140,7 @@ namespace M120Projekt.Windows
             this.dateDeadline.IsEnabled = true;
             this.dateDeadline.Opacity = 100;
             this.lblDeadline.Opacity = 100;
+            this.UserControlChanged(this, EventArgs.Empty);
         }
 
         private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
@@ -125,11 +148,12 @@ namespace M120Projekt.Windows
             this.dateDeadline.IsEnabled = false;
             this.dateDeadline.Opacity = 50;
             this.lblDeadline.Opacity = 50;
+            this.UserControlChanged(this, EventArgs.Empty);
         }
 
-        private void UserControllChanged (object sender, EventArgs e)
+        private void UserControlChanged (object sender, EventArgs e)
         {
-            //Todo: USER CONTROLL CHANGED!!
+            this.btnSaveTodo.IsEnabled = this.ValidateAllInputs();
         }
 
     }
