@@ -183,10 +183,7 @@ namespace M120Projekt.UserControls
 
         private void Input_TextChanged(object sender, TextChangedEventArgs e)
         {
-            if (InputTextChanged != null)
-            {
-                InputTextChanged(this, EventArgs.Empty);
-            }
+            InputTextChanged?.Invoke(this, EventArgs.Empty);
             this.Validate();
         }
 

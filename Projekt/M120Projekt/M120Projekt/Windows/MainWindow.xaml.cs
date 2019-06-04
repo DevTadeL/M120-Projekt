@@ -72,7 +72,7 @@ namespace M120Projekt
 
         private void NewTodoBtnClick(object sender, RoutedEventArgs e)
         {
-            EditTodoWindow createNewTodoWin = new EditTodoWindow(null);
+            TodoWindow createNewTodoWin = new TodoWindow(null);
             createNewTodoWin.ShowDialog();
         }
 
@@ -81,8 +81,43 @@ namespace M120Projekt
             Button pressedBtn = (Button)sender;
             Todo todo = (Todo)pressedBtn.DataContext;
             
-            EditTodoWindow createNewTodoWin = new EditTodoWindow((int)todo.TodoID);
+            TodoWindow createNewTodoWin = new TodoWindow((int)todo.TodoID);
             createNewTodoWin.ShowDialog();
+        }
+
+        private void Done_Clicked(object sender, RoutedEventArgs e)
+        {
+            CheckBox clickedBox = (CheckBox)sender;
+            Todo todo = (Todo)clickedBox.DataContext;
+
+            MessageBox.Show(todo.Title + " " + clickedBox.IsChecked,
+                        "Todo löschen",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Warning);
+        }
+
+        private void RefreshButton_Click(object sender, RoutedEventArgs e)
+        {
+            todos.RemoveRange(0, todos.Count());
+            todos.AddRange(Data.Todo.GetAll());
+            todoListBox.Items.Refresh();
+        }
+
+        private void SearchButton_Click(object sender, RoutedEventArgs e)
+        {
+            todos.RemoveRange(0, todos.Count());
+            todos.AddRange(Data.Todo.GetAllLike(inputSearch.Text));
+            todoListBox.Items.Refresh();
+        }
+
+        private void inputSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (inputSearch.Text == "")
+            {
+                todos.RemoveRange(0, todos.Count());
+                todos.AddRange(Data.Todo.GetAll());
+                todoListBox.Items.Refresh();
+            }
         }
     }
 }

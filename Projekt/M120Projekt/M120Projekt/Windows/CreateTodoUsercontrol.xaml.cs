@@ -16,11 +16,19 @@ using M120Projekt.UserControls;
 
 namespace M120Projekt.Windows
 {
+    public enum CustomUCState { CREATE, EDIT };
     /// <summary>
     /// Interaktionslogik für CreateTodoUsercontrol.xaml
     /// </summary>
     public partial class CreateTodoUsercontrol : UserControl
     {
+        public event EventHandler WindowStateShow;
+        public event EventHandler WindowStateShowNew;
+
+        private CustomUCState ucState;
+        private Data.Todo currentTodo;
+        private bool showCancelDialog = false;
+
         private Window parentWindow;
         public CreateTodoUsercontrol()
         {
@@ -38,39 +46,68 @@ namespace M120Projekt.Windows
             this.inputPhoneNr.AddRule(InputRegexUC.Rule.NUMBERS_ONLY);
         }
 
+        public void SetState(CustomUCState state)
+        {
+            this.ucState = state;
+            if(this.ucState == CustomUCState.EDIT)
+            {
+                this.btnSaveTodo.Content = "Übernehmen";
+            } else if (this.ucState == CustomUCState.CREATE)
+            {
+                this.SetupValues(new Data.Todo());
+                this.inputTitle.ShowError("");
+                this.btnSaveTodo.Content = "Erstellen";
+            }
+        }
+
         private void btnSaveTodo_Click(object sender, RoutedEventArgs e)
         {
             if (ValidateBaseInputs())
             {
-                Data.Todo newTodo = new Data.Todo();
-                newTodo.Title = this.inputTitle.GetInput();
-                newTodo.Description = this.inputDescription.Text;
-                newTodo.Priority = this.comboPriority.SelectedIndex + 1;
+                if (ucState == CustomUCState.CREATE)
+                {
+                    Data.Todo newTodo = new Data.Todo();
+                    newTodo.Title = this.inputTitle.GetInput();
+                    newTodo.Description = this.inputDescription.Text;
+                    newTodo.Priority = this.comboPriority.SelectedIndex + 1;
 
-                // TODO: Empty Values as NULL in DB (for better search quality)
-                if (this.dateDeadline.SelectedDate != null)
-                    newTodo.Deadline = this.dateDeadline.SelectedDate.Value;
+                    // TODO: Empty Values as NULL in DB (for better search quality)
+                    if (this.dateDeadline.SelectedDate != null)
+                        newTodo.Deadline = this.dateDeadline.SelectedDate.Value;
 
-                newTodo.Asignee = this.inputAsignee.GetInput();
-                newTodo.Place = this.inputPlace.GetInput();
-                newTodo.TelNumber = this.inputPhoneNr.GetInput();
-                newTodo.Created = DateTime.Now;
+                    newTodo.Asignee = this.inputAsignee.GetInput();
+                    newTodo.Place = this.inputPlace.GetInput();
+                    newTodo.TelNumber = this.inputPhoneNr.GetInput();
+                    newTodo.Created = DateTime.Now;
 
-                newTodo.Create(); // Save Todo in DB
+                    newTodo.Create(); // Save Todo in DB
 
-                MessageBox.Show("Todo " + newTodo.Title + " wurde erstellt",
-                    "Information",
-                    MessageBoxButton.OK,
-                    MessageBoxImage.Information);
+                    WindowStateShowNew?.Invoke(this, EventArgs.Empty);
+                }
+                else if (ucState == CustomUCState.EDIT)
+                {
+                    this.currentTodo.Title = this.inputTitle.GetInput();
+                    this.currentTodo.Description = this.inputDescription.Text;
+                    this.currentTodo.Priority = this.comboPriority.SelectedIndex + 1;
 
-                this.parentWindow.Close();
+                    if (this.dateDeadline.SelectedDate != null)
+                        this.currentTodo.Deadline = this.dateDeadline.SelectedDate.Value;
+
+                    this.currentTodo.Asignee = this.inputAsignee.GetInput();
+                    this.currentTodo.Place = this.inputPlace.GetInput();
+                    this.currentTodo.TelNumber = this.inputPhoneNr.GetInput();
+                    this.currentTodo.Created = DateTime.Now;
+
+                    this.currentTodo.Update();
+
+                    WindowStateShow?.Invoke(this, EventArgs.Empty);
+                }
             }
         }
 
-        public void SetupValues(int id)
+        public void SetupValues(Data.Todo currentTodo)
         {
-            Data.Todo currentTodo = Data.Todo.GetById(id);
-
+            this.currentTodo = currentTodo;
             this.inputTitle.SetContent(currentTodo.Title);
             this.inputDescription.Text = currentTodo.Description;
             this.comboPriority.SelectedIndex = (int)currentTodo.Priority - 1;
@@ -82,6 +119,8 @@ namespace M120Projekt.Windows
             this.inputAsignee.SetContent(currentTodo.Asignee);
             this.inputPlace.SetContent(currentTodo.Place);
             this.inputPhoneNr.SetContent(currentTodo.TelNumber);
+
+            this.showCancelDialog = false;
         }
 
         /// <summary>
@@ -90,7 +129,6 @@ namespace M120Projekt.Windows
         /// <returns></returns>
         private bool ValidateBaseInputs()
         {
-            //TODO: GRUNDEIGENSCHAFTEN DÜRFEN NICHT LEER SEIN
             return this.inputTitle.Validate();
         }
 
@@ -104,7 +142,14 @@ namespace M120Projekt.Windows
             {
                 if ((bool)this.cbHasDeadline.IsChecked)
                 {
-                    valid = this.dateDeadline.SelectedDate >= DateTime.Now;
+                    if (this.dateDeadline.SelectedDate != null)
+                    {
+                        DateTime selectedDate = (DateTime)this.dateDeadline.SelectedDate;
+                        valid = selectedDate.Day >= DateTime.Now.Day;
+                    } else
+                    {
+                        valid = false;
+                    }
                 } else
                 {
                     valid = true;
@@ -116,17 +161,43 @@ namespace M120Projekt.Windows
             return valid;
         }
 
-        private void BtnCancel_Click(object sender, RoutedEventArgs e)
+        public void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: MESSAGE BOX AUCH ANZEIGEN WENN AUF [X] GEKLICKT WIRD
-            MessageBoxResult result = MessageBox.Show("Wollen Sie das Erstellen des Todos wirklich beenden?\nAlle Änderungen werden verworfen!",
-                    "Änderungen verwerfen",
-                    MessageBoxButton.YesNo,
-                    MessageBoxImage.Warning);
-
-            if (result == MessageBoxResult.Yes)
+            if (showCancelDialog)
             {
-                this.parentWindow.Close();
+                MessageBoxResult result = MessageBox.Show("Wollen Sie das Erstellen des Todos wirklich beenden?\nAlle Änderungen werden verworfen!",
+                        "Änderungen verwerfen",
+                        MessageBoxButton.YesNo,
+                        MessageBoxImage.Warning);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    WindowStateShow?.Invoke(this, EventArgs.Empty);
+                }
+            } else
+            {
+                WindowStateShow?.Invoke(this, EventArgs.Empty);
+            }
+        }
+
+        public void CloseWindow()
+        {
+            if (showCancelDialog)
+            {
+                //TODO: MESSAGE BOX AUCH ANZEIGEN WENN AUF [X] GEKLICKT WIRD
+                MessageBoxResult result = MessageBox.Show("Wollen Sie das Erstellen des Todos wirklich beenden?\nAlle Änderungen werden verworfen!",
+                        "Änderungen verwerfen",
+                        MessageBoxButton.YesNo,
+                        MessageBoxImage.Warning);
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    WindowStateShow?.Invoke(this, EventArgs.Empty);
+                }
+            }
+            else
+            {
+                WindowStateShow?.Invoke(this, EventArgs.Empty);
             }
         }
 
@@ -137,6 +208,8 @@ namespace M120Projekt.Windows
 
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
+            this.showCancelDialog = true;
+
             this.dateDeadline.IsEnabled = true;
             this.dateDeadline.Opacity = 100;
             this.lblDeadline.Opacity = 100;
@@ -145,6 +218,8 @@ namespace M120Projekt.Windows
 
         private void CheckBox_Unchecked(object sender, RoutedEventArgs e)
         {
+            this.showCancelDialog = true;
+
             this.dateDeadline.IsEnabled = false;
             this.dateDeadline.Opacity = 50;
             this.lblDeadline.Opacity = 50;
@@ -153,6 +228,7 @@ namespace M120Projekt.Windows
 
         private void UserControlChanged (object sender, EventArgs e)
         {
+            this.showCancelDialog = true;
             this.btnSaveTodo.IsEnabled = this.ValidateAllInputs();
         }
 

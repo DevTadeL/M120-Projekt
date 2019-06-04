@@ -40,13 +40,21 @@ namespace M120Projekt.Data
                 return "Im Getter kann Code eingefügt werden für berechnete Attribute";
             }
         }
-            public static IEnumerable<Data.Todo> GetAll()
+        public static IEnumerable<Data.Todo> GetAll()
         {
             return (from record in Data.Global.context.Todo select record);
         }
         public static Data.Todo GetById(Int64 todoID)
         {
             return (from record in Data.Global.context.Todo where record.TodoID == todoID select record).FirstOrDefault();
+        }
+        public static IEnumerable<Data.Todo> GetAllLike(String likeString)
+        {
+            return (from record in Data.Global.context.Todo where record.Title.Contains(likeString) select record);
+        }
+        public static Data.Todo GetLatest()
+        {
+            return (from record in Data.Global.context.Todo orderby record.Created descending select record).FirstOrDefault();
         }
         public static IEnumerable<Data.Todo> GetByTitle(String suchbegriff)
         {

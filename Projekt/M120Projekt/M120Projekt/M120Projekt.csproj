@@ -64,11 +64,11 @@
     <Compile Include="UserControls\InputRegexUC.xaml.cs">
       <DependentUpon>InputRegexUC.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\DetailsWindow.xaml.cs">
-      <DependentUpon>DetailsWindow.xaml</DependentUpon>
+    <Compile Include="Windows\DetailsUsercontrol.xaml.cs">
+      <DependentUpon>DetailsUsercontrol.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Windows\EditTodoWindow.xaml.cs">
-      <DependentUpon>EditTodoWindow.xaml</DependentUpon>
+    <Compile Include="Windows\TodoWindow.xaml.cs">
+      <DependentUpon>TodoWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="UserControls\InputRegexUC.xaml">
       <SubType>Designer</SubType>
@@ -78,11 +78,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\DetailsWindow.xaml">
+    <Page Include="Windows\DetailsUsercontrol.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Windows\EditTodoWindow.xaml">
+    <Page Include="Windows\TodoWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

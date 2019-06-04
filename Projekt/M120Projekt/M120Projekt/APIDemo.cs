@@ -31,9 +31,10 @@ namespace M120Projekt
             todo2.Description = "Herrn Zahndudr anrufen um Termin zu vereinbaren.";
             todo2.Priority = 1;
             todo2.Asignee = "Herr Zahndudr";
-            todo2.TelNumber = "+41 79 552 12 24";
+            todo2.TelNumber = "0041 79 552 12 24";
             todo2.Deadline = DateTime.Today;
             todo2.Created = DateTime.Today;
+            todo2.Done = true;
             Int64 todo2ID = todo2.Create();
             Debug.Print("Todo erstellt mit Id:" + todo2ID);
             //
