@@ -41,6 +41,57 @@ namespace M120Projekt.Windows
                 this.lblDescription.Visibility = Visibility.Visible;
                 this.lblDescription.Content = this.currentTodo.Description;
             }
+            if(this.currentTodo.Done)
+            {
+                this.lblDone.Foreground = new SolidColorBrush(Colors.ForestGreen);
+                this.lblDone.Content = "Erledigt!";
+            } else
+            {
+                this.lblDone.Foreground = new SolidColorBrush(Colors.Red);
+                this.lblDone.Content = "Nicht Erledigt!";
+            }
+            if(this.currentTodo.Deadline != null && this.currentTodo.Deadline != DateTime.MinValue)
+            {
+                this.lblDeadline.Visibility = Visibility.Visible;
+                this.lblDeadline.Content = this.currentTodo.Deadline.ToString("dd.MM.yyyy");
+                this.lblDeadlineLabel.Content = "Erledigen bis:";
+            } else
+            {
+                this.lblDeadline.Visibility = Visibility.Hidden;
+                this.lblDeadlineLabel.Content = "Keine Deadline";
+            }
+            if (this.currentTodo.Asignee != null && this.currentTodo.Asignee != "")
+            {
+                this.lblAsignee.Foreground = new SolidColorBrush(Colors.Black);
+                this.lblAsignee.Content = this.currentTodo.Asignee;
+            } else
+            {
+                this.lblAsignee.Foreground = new SolidColorBrush(Colors.Red);
+                this.lblAsignee.Content = "Keiner";
+            }
+            //
+            if (this.currentTodo.Place != null && this.currentTodo.Place != "")
+            {
+                this.lblPlace.Foreground = new SolidColorBrush(Colors.Black);
+                this.lblPlace.Content = this.currentTodo.Place;
+            }
+            else
+            {
+                this.lblPlace.Foreground = new SolidColorBrush(Colors.Red);
+                this.lblPlace.Content = "Keiner";
+            }
+            //
+            if (this.currentTodo.TelNumber != null && this.currentTodo.TelNumber != "")
+            {
+                this.lblPhone.Foreground = new SolidColorBrush(Colors.Black);
+                this.lblPhone.Content = this.currentTodo.TelNumber;
+            }
+            else
+            {
+                this.lblPhone.Foreground = new SolidColorBrush(Colors.Red);
+                this.lblPhone.Content = "Keine";
+            }
+            //
         }
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)

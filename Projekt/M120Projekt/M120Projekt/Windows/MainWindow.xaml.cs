@@ -73,7 +73,13 @@ namespace M120Projekt
         private void NewTodoBtnClick(object sender, RoutedEventArgs e)
         {
             TodoWindow createNewTodoWin = new TodoWindow(null);
+            createNewTodoWin.Closed += TodoWindow_Closed;
             createNewTodoWin.ShowDialog();
+        }
+
+        private void TodoWindow_Closed(object sender, EventArgs e)
+        {
+            this.updateDataAll();
         }
 
         private void EditTodo_OnClick(object sender, RoutedEventArgs e)
@@ -82,6 +88,7 @@ namespace M120Projekt
             Todo todo = (Todo)pressedBtn.DataContext;
             
             TodoWindow createNewTodoWin = new TodoWindow((int)todo.TodoID);
+            createNewTodoWin.Closed += TodoWindow_Closed;
             createNewTodoWin.ShowDialog();
         }
 
@@ -89,18 +96,13 @@ namespace M120Projekt
         {
             CheckBox clickedBox = (CheckBox)sender;
             Todo todo = (Todo)clickedBox.DataContext;
-
-            MessageBox.Show(todo.Title + " " + clickedBox.IsChecked,
-                        "Todo löschen",
-                        MessageBoxButton.OK,
-                        MessageBoxImage.Warning);
+            todo.Done = (bool)clickedBox.IsChecked;
+            todo.Update();
         }
 
         private void RefreshButton_Click(object sender, RoutedEventArgs e)
         {
-            todos.RemoveRange(0, todos.Count());
-            todos.AddRange(Data.Todo.GetAll());
-            todoListBox.Items.Refresh();
+            this.updateDataAll();
         }
 
         private void SearchButton_Click(object sender, RoutedEventArgs e)
@@ -114,10 +116,15 @@ namespace M120Projekt
         {
             if (inputSearch.Text == "")
             {
-                todos.RemoveRange(0, todos.Count());
-                todos.AddRange(Data.Todo.GetAll());
-                todoListBox.Items.Refresh();
+                this.updateDataAll();
             }
+        }
+
+        private void updateDataAll()
+        {
+            todos.RemoveRange(0, todos.Count());
+            todos.AddRange(Data.Todo.GetAll());
+            todoListBox.Items.Refresh();
         }
     }
 }

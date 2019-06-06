@@ -15,15 +15,27 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
-        <Label x:Name="lblTitle" Grid.Row="0" Content="Name des Todos" Margin="10,35,34.667,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Height="31" Grid.ColumnSpan="4"/>
+        <Label x:Name="lblTitle" Grid.Row="0" Content="Name des Todos" Margin="10,35,75,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="16" Height="31" Grid.ColumnSpan="3"/>
         <Label x:Name="lblNew" Content="Neues Todo erstellt!" HorizontalAlignment="Left" Margin="10,17,0,0" Width="209" Height="26" VerticalAlignment="Top"  FontWeight="Bold" Grid.ColumnSpan="3" FontStyle="Italic"/>
-        <Label x:Name="lblDescription"  Grid.Row="0" Content="" Margin="10,66,10.667,4.667" Grid.ColumnSpan="4"/>
-        <Separator Margin="10,0,10,0"  Grid.Row="0" Grid.ColumnSpan="3" Height="1" VerticalAlignment="Bottom"/>
-        <Button x:Name="btnEdit" Content="Bearbeiten" Margin="10,0,10,10" Height="20" VerticalAlignment="Bottom" Grid.Row="1" Click="btnEdit_Click"/>
-        <Button x:Name="btnDelete" Content="Löschen" Margin="10,0,10,10" Height="20" VerticalAlignment="Bottom" Grid.Row="1" Grid.Column="1" Click="btnDelete_Click"/>
-        <Button x:Name="btnClose" Content="Ok" Margin="10,0,10,35" Height="20" VerticalAlignment="Bottom" Grid.Row="1" Click="btnOk_Click" Grid.ColumnSpan="3"/>
-        <Button x:Name="btnCreate" Content="Neues Todo" Margin="10,0,10,10" Height="20" VerticalAlignment="Bottom" Grid.Row="1" Grid.Column="2" Click="btnCreate_Click"/>
+        <Label x:Name="lblDescription"  Grid.Row="0" Content="" Margin="10,66,0,4.667" Grid.ColumnSpan="3" HorizontalAlignment="Left" Width="289"/>
+        <Button x:Name="btnEdit" Content="Bearbeiten" Margin="10,0,10,10" Height="20" VerticalAlignment="Bottom" Grid.Row="2" Click="btnEdit_Click"/>
+        <Button x:Name="btnDelete" Content="Löschen" Margin="10,0,10,10" Height="20" VerticalAlignment="Bottom" Grid.Row="2" Grid.Column="1" Click="btnDelete_Click"/>
+        <Button x:Name="btnClose" Content="Ok" Margin="10,0,10,35" Height="20" VerticalAlignment="Bottom" Grid.Row="2" Click="btnOk_Click" Grid.ColumnSpan="3"/>
+        <Button x:Name="btnCreate" Content="Neues Todo" Margin="10,0,10,10" Height="20" VerticalAlignment="Bottom" Grid.Row="2" Grid.Column="2" Click="btnCreate_Click"/>
+        <Label x:Name="lblDone" Content="Erledigt" Margin="10,5.333,5,0" Grid.Row="1" VerticalAlignment="Top" Height="26"/>
+        <Label x:Name="lblDeadlineLabel" Content="Erledigen bis:" Margin="10,28.333,5,5" Grid.Row="1"/>
+        <Label x:Name="lblDeadline" Content="21.08.1995:" Margin="5.667,28.333,0,0" Grid.Row="1" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Column="1" Height="26" HorizontalAlignment="Left" Width="160"/>
+        <Separator Margin="10,0,10,0.667"  Grid.Row="0" Grid.ColumnSpan="3" Height="1" VerticalAlignment="Bottom"/>
+        <Separator Margin="10,0,10,0.667"  Grid.Row="1" Grid.ColumnSpan="3" Height="1" VerticalAlignment="Bottom"/>
+        <Label Content="Zusatzinformationen" Margin="10,0,8.667,0" Grid.Row="2" VerticalAlignment="Top" Grid.ColumnSpan="3" FontWeight="Bold" Height="26"/>
+        <Label x:Name="lblAsigneeLabel" HorizontalContentAlignment="Right" Content="Auftraggeber:" Margin="11,23,5,0" Grid.Row="2" VerticalAlignment="Top" Height="26"/>
+        <Label x:Name="lblPlaceLabel" HorizontalContentAlignment="Right" Content="Ort:" Margin="10,46,5,0" Grid.Row="2" VerticalAlignment="Top" Height="26"/>
+        <Label x:Name="lblPhoneLabel" HorizontalContentAlignment="Right" Content="Telefonnummer:" Margin="11,69,5,0" Grid.Row="2" VerticalAlignment="Top" Height="26"/>
+        <Label x:Name="lblAsignee" Content="" Margin="5,23,10,0" Grid.Row="2" VerticalAlignment="Top" Height="26" Grid.ColumnSpan="2" Grid.Column="1"/>
+        <Label x:Name="lblPlace" Content="" Margin="5,46,10,0" Grid.Row="2" VerticalAlignment="Top" Height="26" Grid.ColumnSpan="2" Grid.Column="1"/>
+        <Label x:Name="lblPhone" Content="" Margin="5,69,10,0" Grid.Row="2" VerticalAlignment="Top" Height="26" Grid.ColumnSpan="2" Grid.Column="1"/>
     </Grid>
 </UserControl>
