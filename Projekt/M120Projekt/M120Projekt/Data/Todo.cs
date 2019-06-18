@@ -48,17 +48,64 @@ namespace M120Projekt.Data
         {
             return (from record in Data.Global.context.Todo where record.TodoID == todoID select record).FirstOrDefault();
         }
-        public static IEnumerable<Data.Todo> GetAllLike(String likeString)
-        {
-            return (from record in Data.Global.context.Todo where record.Title.Contains(likeString) select record);
-        }
         public static Data.Todo GetLatest()
         {
             return (from record in Data.Global.context.Todo orderby record.Created descending select record).FirstOrDefault();
         }
-        public static IEnumerable<Data.Todo> GetByTitle(String suchbegriff)
+        public static IEnumerable<Data.Todo> GetAllLike(String likeString, String orderBy, String orderHow)
         {
-            return (from record in Data.Global.context.Todo where record.Title == suchbegriff select record);
+            if (orderHow == "radioAufsteigend")
+            {
+                switch (orderBy)
+                {
+                    case "radioName":
+                        return (from record in Data.Global.context.Todo where record.Title.Contains(likeString) orderby record.Title ascending select record);
+                    case "radioFrist":
+                        return (from record in Data.Global.context.Todo where record.Title.Contains(likeString) orderby record.Deadline ascending select record);
+                    case "radioWichtigkeit":
+                        return (from record in Data.Global.context.Todo where record.Title.Contains(likeString) orderby record.Priority ascending select record);
+                }
+            } else
+            {
+                switch (orderBy)
+                {
+                    case "radioName":
+                        return (from record in Data.Global.context.Todo where record.Title.Contains(likeString) orderby record.Title descending select record);
+                    case "radioFrist":
+                        return (from record in Data.Global.context.Todo where record.Title.Contains(likeString) orderby record.Deadline descending select record);
+                    case "radioWichtigkeit":
+                        return (from record in Data.Global.context.Todo where record.Title.Contains(likeString) orderby record.Priority descending select record);
+                }
+            }
+            return (from record in Data.Global.context.Todo where record.Title.Contains(likeString) orderby record.Title ascending select record);
+        }
+        public static IEnumerable<Data.Todo> GetOrderedTodos(String orderBy, String orderHow)
+        {
+            if (orderHow == "radioAufsteigend")
+            {
+                switch (orderBy)
+                {
+                    case "radioName":
+                        return (from record in Data.Global.context.Todo orderby record.Title ascending select record);
+                    case "radioFrist":
+                        return (from record in Data.Global.context.Todo orderby record.Deadline ascending select record);
+                    case "radioWichtigkeit":
+                        return (from record in Data.Global.context.Todo orderby record.Priority ascending select record);
+                }
+            }
+            else
+            {
+                switch (orderBy)
+                {
+                    case "radioName":
+                        return (from record in Data.Global.context.Todo orderby record.Title descending select record);
+                    case "radioFrist":
+                        return (from record in Data.Global.context.Todo orderby record.Deadline descending select record);
+                    case "radioWichtigkeit":
+                        return (from record in Data.Global.context.Todo orderby record.Priority descending select record);
+                }
+            }
+            return (from record in Data.Global.context.Todo orderby record.Title ascending select record);
         }
         public static IEnumerable<Data.Todo> GetByTitleLike(String suchbegriff)
         {

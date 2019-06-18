@@ -58,7 +58,7 @@ namespace M120Projekt.Windows
             } else
             {
                 this.lblDeadline.Visibility = Visibility.Hidden;
-                this.lblDeadlineLabel.Content = "Keine Deadline";
+                this.lblDeadlineLabel.Content = "Keine Frist";
             }
             if (this.currentTodo.Asignee != null && this.currentTodo.Asignee != "")
             {

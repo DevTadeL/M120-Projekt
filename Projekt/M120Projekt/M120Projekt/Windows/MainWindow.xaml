@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:M120Projekt"
         xmlns:Data="clr-namespace:M120Projekt.Data" x:Class="M120Projekt.MainWindow"
         mc:Ignorable="d"
-        Title="TodoListe" Height="470" Width="600" MinWidth="400" MinHeight="300">
+        Title="TodoBook - Ein Schulprojekt von Mateusz Rüfenacht" Height="470" Width="600" MinWidth="400" MinHeight="350">
     <Grid>
         <Grid.Resources>
             <BitmapImage x:Key="addImage" UriSource="/Assets/add.png"/>
@@ -19,14 +19,13 @@
             <ColumnDefinition Width="233*"/>
             <ColumnDefinition Width="45*"/>
         </Grid.ColumnDefinitions>
-        <ListBox ItemsSource="{Binding}" Name="todoListBox" Grid.Column="1" Margin="10,72,10,22" SelectionChanged="ListBox_SelectionChanged" AllowDrop="True" Grid.ColumnSpan="2">
-            <ListBox.ItemTemplate >
+        <ListBox ItemsSource="{Binding}" Name="todoListBox" Grid.Column="1" Margin="10,72,10,22" SelectionChanged="ListBox_SelectionChanged" AllowDrop="True" Grid.ColumnSpan="2" MouseDoubleClick="EditTodo_OnClick">
+            <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <CheckBox Click="Done_Clicked" Content="Erledigt" Margin="0,4,0,0" IsChecked="{Binding Path=Done}" Height="Auto" VerticalAlignment="Center" HorizontalAlignment="Left" Width="17"/>
-                            <TextBlock Margin="5" Height="Auto" FontSize="16" FontWeight="Bold" Text="{Binding Path=Title}"/>
-                            <Button HorizontalAlignment="Right" Content="Show" Click="EditTodo_OnClick"/>
+                            <Label Margin="5" Height="Auto" FontSize="16" FontWeight="Bold" Content="{Binding Path=Title}" />
                         </StackPanel>
                         <Expander Name="expender">
                             <Border Margin="5" BorderThickness="5">
@@ -46,11 +45,14 @@
             </StackPanel>
         </Button>
 
-        <TextBox x:Name="inputSearch" Grid.Column="1" Margin="10,49,0,0" Padding="10,0,0,0" TextWrapping="Wrap" Height="23" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Text="Nach Todo suchen" GotFocus="TextBox_OnFocus" LostFocus="TextBox_OnFocusLost" FontSize="14" Background="White" Foreground="#FF8D8D8D" TextChanged="inputSearch_TextChanged"/>
-        <Button x:Name="SearchButton" Grid.Column="2" Margin="0,49,10,0" Height="23" VerticalAlignment="Top" Click="SearchButton_Click">
-            <StackPanel Orientation="Horizontal">
-                <Image Source="{StaticResource searchImage}" Width="16" Margin="0,0,5,0" />
-            </StackPanel>
-        </Button>
+        <TextBox x:Name="inputSearch" Margin="10,49,10,0" Padding="10,0,0,0" TextWrapping="Wrap" Height="23" Width="Auto" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Text="Nach Todo suchen" GotFocus="TextBox_OnFocus" LostFocus="TextBox_OnFocusLost" FontSize="14" Background="White" Foreground="#FF8D8D8D" TextChanged="inputSearch_TextChanged" Grid.Column="1" Grid.ColumnSpan="2"/>
+        <Image HorizontalAlignment="Right" Source="{StaticResource searchImage}" Height="20" Margin="0,50,15,0" RenderTransformOrigin="1.563,0.336" Grid.Column="2" VerticalAlignment="Top" />
+        <Label Content="Sortieren nach" Grid.Column="3" Margin="0,130,0,0" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Width="125" FontWeight="Bold"/>
+        <Separator Grid.Column="3" Height="7" Margin="2,213,31,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+        <RadioButton Unchecked="SortBy_Unchecked" Checked="SortBy_Checked" IsChecked="True" x:Name="radioName" GroupName="sortBy" Content="Name" Grid.Column="3" Margin="2,156,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="51"/>
+        <RadioButton Unchecked="SortBy_Unchecked" Checked="SortBy_Checked" GroupName="sortBy" x:Name="radioFrist" Content="Frist" Grid.Column="3" Margin="2,176,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="41"/>
+        <RadioButton Unchecked="SortBy_Unchecked" Checked="SortBy_Checked" GroupName="sortBy" x:Name="radioWichtigkeit" Content="Wichtigkeit" Grid.Column="3" Margin="2,196,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="79"/>
+        <RadioButton Unchecked="SortHow_Unchecked" Checked="SortHow_Checked" IsChecked="True" x:Name="radioAufsteigend" GroupName="sortHow" Content="Aufsteigend" Grid.Column="3" Margin="2,225,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="85"/>
+        <RadioButton Unchecked="SortHow_Unchecked" Checked="SortHow_Checked" GroupName="sortHow" x:Name="radioAbsteigend" Content="Absteigend" Grid.Column="3" Margin="2,245,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="79"/>
     </Grid>
 </Window>

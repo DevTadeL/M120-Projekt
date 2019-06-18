@@ -81,7 +81,7 @@ namespace M120Projekt.Windows
             switch (windowState)
             {
                 case CustomWindowState.SHOW:
-                    this.Title = "Todo Ansicht";
+                    this.Title = this.currentTodo.Title;
                     this.todoEditUC.Visibility = Visibility.Collapsed;
                     this.todoUC.Visibility = Visibility.Visible;
                     this.todoUC.SetupTodo(this.currentTodo);
@@ -95,14 +95,14 @@ namespace M120Projekt.Windows
                     }
                     break;
                 case CustomWindowState.EDIT:
-                    this.Title = "Todo bearbeiten";
+                    this.Title = "Bearbeiten";
                     this.todoEditUC.SetState(CustomUCState.EDIT);
                     this.todoEditUC.SetupValues(this.currentTodo);
                     this.todoUC.Visibility = Visibility.Collapsed;
                     this.todoEditUC.Visibility = Visibility.Visible;
                     break;
                 case CustomWindowState.CREATE:
-                    this.Title = "Todo erstellen";
+                    this.Title = "Neues Todo erstellen";
                     this.todoEditUC.SetState(CustomUCState.CREATE);
                     this.todoUC.Visibility = Visibility.Collapsed;
                     this.todoEditUC.Visibility = Visibility.Visible;

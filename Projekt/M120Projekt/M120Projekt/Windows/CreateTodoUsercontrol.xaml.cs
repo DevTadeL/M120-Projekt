@@ -163,7 +163,7 @@ namespace M120Projekt.Windows
 
         public void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
-            if (showCancelDialog)
+             if (showCancelDialog)
             {
                 MessageBoxResult result = MessageBox.Show("Wollen Sie das Erstellen des Todos wirklich beenden?\nAlle Änderungen werden verworfen!",
                         "Änderungen verwerfen",
@@ -184,7 +184,6 @@ namespace M120Projekt.Windows
         {
             if (showCancelDialog)
             {
-                //TODO: MESSAGE BOX AUCH ANZEIGEN WENN AUF [X] GEKLICKT WIRD
                 MessageBoxResult result = MessageBox.Show("Wollen Sie das Erstellen des Todos wirklich beenden?\nAlle Änderungen werden verworfen!",
                         "Änderungen verwerfen",
                         MessageBoxButton.YesNo,
@@ -226,11 +225,10 @@ namespace M120Projekt.Windows
             this.UserControlChanged(this, EventArgs.Empty);
         }
 
-        private void UserControlChanged (object sender, EventArgs e)
+        private void UserControlChanged(object sender, EventArgs e)
         {
             this.showCancelDialog = true;
             this.btnSaveTodo.IsEnabled = this.ValidateAllInputs();
         }
-
     }
 }
